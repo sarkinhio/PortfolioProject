@@ -119,8 +119,8 @@ FROM Housing
 GROUP BY SoldAsVacant
 ORDER BY 2
 
-SELECT SoldAsVacant
-, CASE
+SELECT SoldAsVacant, 
+CASE
 	WHEN SoldAsVacant = 'Y' THEN 'Yes'
 	WHEN SoldAsVacant = 'N' THEN 'No'
 	ELSE SoldAsVacant
@@ -145,13 +145,12 @@ WITH RowNumCTE as(
 SELECT *,
 	ROW_NUMBER() OVER (
 	PARTITION BY ParcelID,
-				 PropertyAddress,
-				 SalePrice,
-				 SaleDate,
-				 LegalReference
-				 ORDER BY
-					UniqueID
-					) as row_num
+		PropertyAddress,
+		SalePrice,
+		SaleDate,
+		LegalReference
+		ORDER BY UniqueID
+) as row_num
 FROM Housing
 )
 
