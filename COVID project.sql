@@ -1,13 +1,15 @@
+-- EXPLORING DATA
+
 SELECT *
 FROM CovidDeaths
 WHERE continent is not null
 ORDER BY 3,4
 
---SELECT *
---FROM CovidVaccinations
---ORDER BY 3,4
+SELECT *
+FROM CovidVaccinations
+ORDER BY 3,4
 
---Selecting data which will be used for analysis
+-- Selecting data which will be used for analysis
 
 SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM CovidDeaths
@@ -21,15 +23,14 @@ FROM CovidDeaths
 WHERE location = 'Lithuania' AND continent is not null
 ORDER BY 1,2
 
--- Looking at Total Cases vs population
--- Shows what percentage of population got COVID
+-- Looking at Total Cases vs population to see the percentage of population that got COVID-19
 
 SELECT location, date, total_cases, population, (total_cases/population)*100 as PopulationPercentage
 FROM CovidDeaths
 WHERE location = 'Lithuania' AND continent is not null
 ORDER BY 1,2
 
---Countries that has highest infection rate compareds to population
+-- Countries that has highest infection rate compared to population
 
 SELECT location, population, MAX(total_cases) as HighestInfectionCount, MAX((total_cases/population))*100 as InfectedPopulationPercentage
 FROM CovidDeaths
@@ -38,8 +39,7 @@ WHERE continent is not null
 GROUP BY location, population
 ORDER BY InfectedPopulationPercentage DESC
 
---Countries with highest death count per population
---breaking down by continent
+-- Countries with highest death count per population
 
 SELECT continent, MAX(CAST(total_deaths as int)) as TotalDeathCount
 FROM CovidDeaths
@@ -53,7 +53,7 @@ GROUP BY continent
 ORDER BY TotalDeathCount DESC
 
 
---Showing continents with highest death count
+-- Showing continents with highest death count
 
 SELECT continent, MAX(CAST(total_deaths as int)) as TotalDeathCount
 FROM CovidDeaths
